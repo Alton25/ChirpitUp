@@ -5,7 +5,7 @@ class EditChirp extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            objects: []
+            objects: [] 
         }
         this.editThisChirp = this.editThisChirp.bind(this);
     }

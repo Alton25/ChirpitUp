@@ -6,7 +6,7 @@ router.get('/', async (req, res) => {
 	try{
 		console.log("test")
 	res.json(await db.Users.all());
-		// res.send("test")
+		
 	}catch(e){
 		console.log(e);
 		res.sendStatus(500);
@@ -15,30 +15,29 @@ router.get('/', async (req, res) => {
 
  router.post('/', async(req, res) => {
 	try{
- 		res.json(await db.Users.PostUsers());
+		const name = req.body.name;
+		const email = req.body.email;
+ 		const DB = await db.Users.PostUsers(name, email);
+
+		 res.json(DB);
  	}catch(e){
  		console.log(e);
 		res.sendStatus(500);
  	}
  });
 
- router.put('/:id', async (req, res) => {
+ router.put('/:id', async (req, res, next) => {
  	try{
- 		res.json(await db.Users.PutUsers());
- 	}catch(e){
- 		console.log(e);
- 		res.sendStatus(500);
+		 const ID = req.params.id;
+		 const name = req.body.name;
+ 	const DB = await db.Users.PutUsers(ID, name);
+	 res.json(DB);
+ 	}catch(error){
+ 		console.log(error);
+ 		res.sendStatus(error);
  	}
  });
 
- router.delete('/:id', async (req, res) => {
-	 let id = req.params.id;
-	 try{
-		 res.json(await db.Users.DeleteUsers());
-	 }catch(e){
-		 console.log(e);
-		 res.sendStatus(500);
-	 }
- });
+ 
 
 export default router
